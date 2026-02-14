@@ -122,10 +122,11 @@ function displayWorks(filterTag) {
   renderGrid(filtered, container);
 }
 
+// script.js 内の renderGrid 関数をこれに置き換えてください
+
 function renderGrid(pages, container) {
   container.innerHTML = '';
-  const previewImg = document.getElementById('hover-preview-image');
-  const previewContainer = document.getElementById('hover-preview-container');
+  // ホバープレビュー用の要素取得は不要になったため削除
 
   if (pages.length === 0) {
     container.innerHTML = '<p class="loading">No works found.</p>';
@@ -133,36 +134,29 @@ function renderGrid(pages, container) {
   }
 
   pages.forEach(page => {
-    const row = document.createElement('div');
-    row.className = 'work-row';
-
-    const typeLabel = 'artwork';
+    const card = document.createElement('div');
+    card.className = 'work-card'; // クラス名を変更
 
     let imgUrl = page.image || '';
     if (imgUrl.startsWith('https://scrapbox.io')) {
       imgUrl = imgUrl.replace('https://scrapbox.io', PROXY_BASE);
     }
 
-    row.innerHTML = `
-      <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="row-link">
-        <div class="title-area">
+    // 画像がない場合のプレースホルダー画像（必要に応じて変更可）
+    const imageStyle = imgUrl 
+      ? `background-image: url('${imgUrl}');` 
+      : 'background-color: #f0f0f0;'; 
+
+    card.innerHTML = `
+      <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="card-link">
+        <div class="card-image" style="${imageStyle}"></div>
+        <div class="card-info">
           <h3>${page.title}</h3>
         </div>
       </a>
     `;
 
-    if (previewImg && previewContainer) {
-      row.addEventListener('mouseenter', () => {
-        if (imgUrl) {
-          previewImg.style.backgroundImage = `url('${imgUrl}')`;
-          previewContainer.style.opacity = '1';
-        }
-      });
-      row.addEventListener('mouseleave', () => {
-        previewContainer.style.opacity = '0';
-      });
-    }
-    container.appendChild(row);
+    container.appendChild(card);
   });
 }
 

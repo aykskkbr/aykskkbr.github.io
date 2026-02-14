@@ -123,9 +123,14 @@ a {
 #works-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 横3列 */
-    gap: 40px; /* アイテム間の余白 */
-    width: 100%;
+    row-gap: 50px;
+    column-gap: 40px;
+    width: 80%;
     box-sizing: border-box;
+    margin-top: 180px;    /* ヘッダーと被らないよう上に余白（About等と統一） */
+    margin-left: auto;    /* 左の余白を自動計算 */
+    margin-right: auto;   /* 右の余白を自動計算＝これで中央に来ます */
+    margin-bottom: 100px; /* 下の余白 */
 }
 
 /* 個々の作品カード */
@@ -172,6 +177,8 @@ a {
     #works-grid {
         grid-template-columns: 1fr; /* スマホでは1列 */
         gap: 40px;
+        width: 100%; /* スマホでは親要素のpaddingに任せて幅いっぱいに */
+        margin: 0;   /* PC用の大きな余白をリセット */
     }
     
     .card-info h3 {

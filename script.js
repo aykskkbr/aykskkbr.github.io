@@ -106,41 +106,6 @@ async function fetchScrapboxData(pageType, currentPageTitle = null, foundTags = 
   }
 }
 
-// --- displayRelatedLinks (viewer.html用) ---
-function displayRelatedLinks(currentTitle, tagsToSearch) {
-  const container = document.getElementById('related-grid');
-  const section = document.querySelector('.related-section');
-  if (!container || !section) return;
-
-  // 関連ページを抽出
-  const relatedPages = allPages.filter(page => {
-    if (page.title === currentTitle) return false;
-    if (EXCLUDED_TITLES.includes(page.title.toLowerCase())) return false;
-
-    const desc = page.descriptions.join(' ').toLowerCase();
-
-    return tagsToSearch.some(tag => {
-      const t = tag.toLowerCase().replace(/[\[\]]/g, '');
-      const keywords = t.includes('/') ? [t, ...t.split('/')] : [t];
-      return keywords.some(k => {
-        const cleanK = k.trim();
-        if (!cleanK) return false;
-        return desc.includes(`[${cleanK}]`) || desc.includes(cleanK);
-      });
-    });
-  });
-
-  if (relatedPages.length > 0) {
-    section.style.display = 'block';
-
-    // Memorandumがないため、常時グリッド表示(Worksスタイル)で表示します
-    container.classList.remove('log-list');
-    renderGrid(relatedPages, container);
-  } else {
-    section.style.display = 'none';
-  }
-}
-
 // --- Works (Index) 専用 ---
 function displayWorks(filterTag) {
   const container = document.getElementById('works-grid');
@@ -183,7 +148,6 @@ function renderGrid(pages, container) {
         <div class="title-area">
           <h3>${page.title}</h3>
         </div>
-        <div class="type-tag">${typeLabel}</div>
       </a>
     `;
 

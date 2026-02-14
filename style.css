@@ -1,5 +1,5 @@
 /* --- Font Import --- */
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;700&family=Noto+Sans+JP:wght@100;300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@100;300;400;700&family=Noto+Serif+JP:wght@100;300;400&display=swap');
 
 /* --- Base Styles --- */
 body {
@@ -8,8 +8,7 @@ body {
     background-color: #fff;
     /* 指定のブルー */
     color: #000;
-    /* 英数字は Noto Sans、日本語は Noto Sans JP */
-    font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+    font-family: "Noto Serif JP", serif;
     -webkit-font-smoothing: antialiased;
     font-weight: 100;
     /* 日本語を Thin に */
@@ -135,10 +134,10 @@ a {
 
 .title-area h3 {
     margin: 0;
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 100;
     letter-spacing: 0.15em;
-    line-height: 2.5rem;
+    line-height: 1.5rem;
 }
 
 /* --- Content Detail (About / Viewer) --- */
@@ -154,9 +153,9 @@ a {
 }
 
 .text-content h1 {
-    font-size: 2.2rem;
+    font-size: 1.8rem;
     font-weight: 100;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.1em;
     margin-bottom: 2.2rem;
     line-height: 2.5rem;
 }
@@ -205,7 +204,7 @@ a {
     background: none;
     border: none;
     color: rgba(0, 0, 0, 0.4);
-    font-family: "Noto Sans", sans-serif;
+    font-family: "Noto Serif JP", serif;
     font-size: 1.2rem;
     font-weight: 300;
     text-transform: lowercase;
@@ -229,17 +228,13 @@ a {
     padding: 35px 0;
 }
 
-/* 関連記事セクション内にあるリンクの余白のみを上書き */
-.related-section .row-link {
-    padding: 15px 0;
-}
 
 .type-tag {
     font-size: 1.2rem;
     font-weight: 300;
     color: rgba(0, 0, 0, 0.5);
     text-transform: lowercase;
-    font-family: "Noto Sans", sans-serif;
+    font-family: "Noto Serif JP", serif;
     letter-spacing: 0.1em;
     white-space: nowrap;
     /* 文字を途中で改行させない */
@@ -409,7 +404,7 @@ a {
     font-size: 0.85rem;
     letter-spacing: 0.05em;
     color: rgba(0, 0, 0, 0.4);
-    font-family: "Noto Sans", sans-serif;
+    font-family: "Noto Serif JP", serif;
     font-weight: 400;
     width: 60px;
     /* 日付の幅を固定して揃える */
@@ -428,7 +423,7 @@ a {
     letter-spacing: 0.05em;
     font-weight: 300;
     color: rgba(0, 0, 0, 0.6);
-    font-family: "Noto Sans", sans-serif;
+    font-family: "Noto Serif JP", serif;
     text-transform: lowercase;
 }
 
@@ -441,24 +436,6 @@ a {
 .log-row:hover .log-date,
 .log-row:hover .log-type-tag {
     color: rgba(0, 0, 0, 1);
-}
-
-/* --- Related Section Styles --- */
-.related-section {
-    margin-top: 10px;
-    margin-right: auto;
-    margin-bottom: 4rem;
-    margin-left: auto;
-}
-
-.related-title {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: none;
-    color: #000;
-    margin-bottom: 30px;
-    font-weight: 100;
-    /* Noto Sans Regular */
 }
 
 /* --- Code Block Styles --- */

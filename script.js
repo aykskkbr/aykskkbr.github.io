@@ -124,8 +124,7 @@ function displayWorks(filterTag) {
 
 function renderGrid(pages, container) {
   container.innerHTML = '';
-  const previewImg = document.getElementById('hover-preview-image');
-  const previewContainer = document.getElementById('hover-preview-container');
+  // ホバープレビュー機能は不要になるため、関連する取得コードは削除または無視します
 
   if (pages.length === 0) {
     container.innerHTML = '<p class="loading">No works found.</p>';
@@ -133,36 +132,31 @@ function renderGrid(pages, container) {
   }
 
   pages.forEach(page => {
-    const row = document.createElement('div');
-    row.className = 'work-row';
-
-    const typeLabel = 'artwork';
+    // row ではなく card として作成
+    const card = document.createElement('div');
+    card.className = 'work-card';
 
     let imgUrl = page.image || '';
     if (imgUrl.startsWith('https://scrapbox.io')) {
       imgUrl = imgUrl.replace('https://scrapbox.io', PROXY_BASE);
     }
 
-    row.innerHTML = `
-      <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="row-link">
-        <div class="title-area">
-          <h3>${page.title}</h3>
+    // 画像がない場合はグレーの背景にするためのスタイル設定
+    // 画像がある場合は背景画像として設定
+    const thumbStyle = imgUrl 
+      ? `background-image: url('${imgUrl}');` 
+      : `background-color: #dddddd;`; // 画像がない時のグレー
+
+    card.innerHTML = `
+      <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="card-link">
+        <div class="work-thumbnail" style="${thumbStyle}"></div>
+        <div class="work-info">
+          <h3 class="work-title">${page.title}</h3>
         </div>
       </a>
     `;
 
-    if (previewImg && previewContainer) {
-      row.addEventListener('mouseenter', () => {
-        if (imgUrl) {
-          previewImg.style.backgroundImage = `url('${imgUrl}')`;
-          previewContainer.style.opacity = '1';
-        }
-      });
-      row.addEventListener('mouseleave', () => {
-        previewContainer.style.opacity = '0';
-      });
-    }
-    container.appendChild(row);
+    container.appendChild(card);
   });
 }
 

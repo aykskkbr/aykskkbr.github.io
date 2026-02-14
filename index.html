@@ -1,77 +1,48 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ayaka Sakakibara</title>
-    <style>
-        /* CSS: 見た目の設定 */
-        :root {
-            --bg-color: #ffffff;
-            --text-color: #111111;
-        }
-
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background-color: var(--bg-color);
-            font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-            overflow: hidden; /* スクロールバーを消す */
-        }
-
-        /* 中央揃えのためのコンテナ */
-        .container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        /* 名前のテキストスタイル */
-        .name-title {
-            font-size: 1.5rem; /* スマホ等は小さめ */
-            font-weight: 300;  /* 細めのフォントで上品に */
-            letter-spacing: 0.25em; /* 文字間を広げて洗練された印象に */
-            text-transform: uppercase; /* 大文字に変換 */
-            color: var(--text-color);
-            opacity: 0; /* 最初は隠しておく */
-            transform: translateY(10px); /* 少し下に配置 */
-            transition: opacity 1.5s ease, transform 1.5s ease-out;
-        }
-
-        /* 表示用のクラス */
-        .name-title.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* PC向けのサイズ調整 */
-        @media (min-width: 768px) {
-            .name-title {
-                font-size: 2.5rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Works - Ayaka Sakakibara</title>
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Works - Ayaka Sakakibara">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aykskkbr.github.io/">
+  <meta property="og:image" content="https://aykskkbr.github.io/ogp.png">
+  <meta property="og:site_name" content="Ayaka Sakakibara">
+  <meta property="og:description" content="Ayaka Sakakibara Portfolio - Works">
 </head>
-<body>
 
-    <main class="container">
-        <h1 id="title" class="name-title">Ayaka Sakakibara</h1>
-    </main>
+<body class="index-body">
+  <div id="hover-preview-container">
+    <div id="hover-preview-image"></div>
+  </div>
 
-    <script>
-        // JS: ページ読み込み後の動作
-        document.addEventListener('DOMContentLoaded', () => {
-            const title = document.getElementById('title');
-            
-            // 少しだけ待ってからクラスを付与してアニメーションを開始
-            setTimeout(() => {
-                title.classList.add('visible');
-            }, 500);
-        });
-    </script>
+  <header class="global-header">
+    <div class="logo">
+      <a href="/">Ayaka Sakakibara</a>
+    </div>
+    <nav class="top-menu">
+      <div class="menu-item active">
+        <a href="/">Works</a>
+      </div>
+      <div class="menu-item">
+        <a href="about.html">About</a>
+      </div>
+    </nav>
+  </header>
 
+  <main class="list-container">
+    <div id="works-grid">
+      <p class="loading">Fetching works...</p>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    window.onload = () => fetchScrapboxData('works');
+  </script>
 </body>
+
 </html>

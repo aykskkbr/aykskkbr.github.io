@@ -1,0 +1,672 @@
+/* --- Font Import --- */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;400;700&family=Noto+Sans+JP:wght@100;300;400&display=swap');
+
+/* --- Base Styles --- */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    /* 指定のブルー */
+    color: #000;
+    /* 英数字は Noto Sans、日本語は Noto Sans JP */
+    font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 100;
+    /* 日本語を Thin に */
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* --- Layout (Fixed Header) --- */
+.global-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 50px;
+    display: flex;
+    justify-content: space-between;
+    /* 1. 中央揃えではなく「ベースライン（文字の底辺）」で揃える */
+    align-items: baseline;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+/* ロゴの親要素 */
+.logo {
+    line-height: 1;
+    /* 余計な高さを排除 */
+}
+
+.logo a {
+    font-size: 1.2rem;
+    font-weight: 300;
+    /* 2. blockではなくinline-blockに（ベースラインを有効にするため） */
+    display: inline-block;
+    letter-spacing: 0.2em;
+    line-height: 1;
+    margin: 0;
+    padding: 0;
+}
+
+/* メニュー全体のコンテナ */
+.top-menu {
+    display: flex;
+    gap: 2rem;
+    /* 3. メニュー内も底辺で揃える */
+    align-items: baseline;
+    line-height: 1;
+}
+
+.menu-item {
+    display: inline-block;
+    line-height: 1;
+    margin: 0;
+    /* margin-bottom: 8px を完全に削除 */
+}
+
+.menu-item a {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.4);
+    transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    /* 4. ここも line-height を1にして高さをロゴと統一 */
+    line-height: 1;
+    display: inline-block;
+}
+
+.menu-item a:hover {
+    color: #000;
+    /* ホバー時に白く */
+}
+
+.menu-item.active,
+.menu-item.active a {
+    color: #000;
+    opacity: 1;
+}
+
+/* --- Hover Preview (Works List用) --- */
+#hover-preview-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#hover-preview-image {
+    width: 60vw;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.9);
+    border-radius: 2px;
+}
+
+/* --- Works List (Index) --- */
+.list-container {
+    padding: 180px 50px 100px;
+    position: relative;
+    z-index: 10;
+}
+
+.work-row {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+    transition: border-color 0.3s;
+}
+
+/* ホバー時は線が白くなるのみ（反転なし） */
+.work-row:hover {
+    border-color: #000;
+}
+
+.title-area h3 {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 100;
+    letter-spacing: 0.15em;
+    line-height: 2.5rem;
+}
+
+/* --- Content Detail (About / Viewer) --- */
+.text-content {
+    max-width: 80vw;
+    margin-top: 180px;
+    margin-right: auto;
+    margin-bottom: 50px;
+    margin-left: auto;
+    /* ヘッダー固定に合わせて開始位置を調整 */
+    padding: 0 50px;
+    line-height: 1.5em;
+}
+
+.text-content h1 {
+    font-size: 2.2rem;
+    font-weight: 100;
+    letter-spacing: 0.15em;
+    margin-bottom: 2.2rem;
+    line-height: 2.5rem;
+}
+
+.text-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+    font-weight: 300;
+    letter-spacing: 0.1em;
+}
+
+.text-content p {
+    font-size: 1.05rem;
+    margin-top: 0;
+    margin-bottom: 0.4rem;
+    line-height: 1.6rem;
+    letter-spacing: 0.0rem;
+    color: rgba(0, 0, 0, 0.9);
+    font-weight: 400;
+    letter-spacing: 0.075em;
+}
+
+/* --- UI Elements --- */
+.loading {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    color: rgba(0, 0, 0, 0.4);
+    text-align: center;
+    margin-top: 35vh;
+    font-weight: 400;
+}
+
+/* --- Filter Buttons --- */
+.filter-nav {
+    display: flex;
+    gap: 2rem;
+    margin-right: auto;
+    margin-block-start: 1em;
+    margin-top: 0rem;
+    margin-bottom: 1rem;
+}
+
+.filter-btn {
+    background: none;
+    border: none;
+    color: rgba(0, 0, 0, 0.4);
+    font-family: "Noto Sans", sans-serif;
+    font-size: 1.2rem;
+    font-weight: 300;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    color: #000;
+}
+
+/* --- Works List Update --- */
+.row-link {
+    display: flex;
+    justify-content: space-between;
+    /* タイトルとタグを両端に配置 */
+    align-items: baseline;
+    padding: 35px 0;
+}
+
+/* 関連記事セクション内にあるリンクの余白のみを上書き */
+.related-section .row-link {
+    padding: 15px 0;
+}
+
+.type-tag {
+    font-size: 1.2rem;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.5);
+    text-transform: lowercase;
+    font-family: "Noto Sans", sans-serif;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    /* 文字を途中で改行させない */
+    flex-shrink: 0;
+    /* 親要素が狭くなっても、タグ自身の幅を維持する */
+    margin-left: 2rem;
+    /* タイトルが長くても、最低限の余白を確保する */
+}
+
+/* ホバー時にタグの視認性を上げる */
+.work-row:hover .type-tag {
+    color: #000;
+}
+
+/* 外部リンクのスタイル */
+.external-link {
+    color: #000;
+    display: inline-block;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    word-break: break-all;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    transition: opacity 0.3s;
+    opacity: 0.6;
+}
+
+.external-link:hover {
+    opacity: 1;
+}
+
+/* 内部リンク（タグ風）と区別する場合 */
+.scrapbox-tag {
+    color: #000;
+    text-underline-offset: 4px;
+    transition: opacity 0.3s;
+    opacity: 0.6;
+}
+
+.scrapbox-tag:hover {
+    opacity: 1;
+}
+
+/* リンクや画像 */
+.indent {
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+    padding-left: 15px;
+    margin: 0.75em 0;
+    font-weight: 400;
+    letter-spacing: 0.075em;
+}
+
+.text-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 0;
+}
+
+.indent img {
+    /* 幅を親要素（.indent）の50%に制限します。
+       もっと小さくしたい場合は 30% や 200px などに変更してください。 */
+    max-width: 50%;
+    height: auto;
+    /* アスペクト比（縦横比）を維持します */
+    display: block;
+    /* ブロック要素にして、テキストと並ばないようにします */
+    margin-top: 0.5em;
+    /* 上に少し余白 */
+    margin-bottom: 0.5em;
+    /* 下に少し余白 */
+}
+
+/* --- Scrapbox Icons --- */
+/* 通常の img タグのスタイル設定を上書きして、文字と同じサイズにします */
+.indent img.scrapbox-icon,
+.scrapbox-icon {
+    display: inline-block !important;
+    /* ブロック化を解除し、文字と並ぶように強制 */
+    width: 1.2em !important;
+    /* 文字サイズに合わせる */
+    height: 1.2em !important;
+    vertical-align: middle;
+    /* 文字の中央に揃える */
+    margin: 0 0.2em !important;
+    /* 前後の余白を最小限に（ブロック用マージンを消す） */
+    border: none;
+    border-radius: 2px;
+}
+
+.text-content .scrapbox-icon {
+    margin: 0 2px !important;
+}
+
+#about-content img {
+    max-width: 300px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin-bottom: 1.2rem;
+}
+
+/* --- Video & Image Sync --- */
+
+/* 1. 全体（viewer.html / about.html 共通）のビデオサイズ設定 */
+.video-container {
+    position: relative;
+    width: 100%;
+    /* 親要素の幅いっぱいに広がる */
+    max-width: 100%;
+    /* 画像と同じ最大幅 */
+    padding-bottom: 56.25%;
+    /* 16:9 のアスペクト比を維持 */
+    height: 0;
+    margin: 0;
+    /* 画像の margin (3em 0) と合わせる */
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* --- Indent内での動画サイズ調整 --- */
+.indent .video-container {
+    /* 1. 画像の設定(max-width: 50%)と合わせる */
+    max-width: 50%;
+    /* 2. 比率を維持する最新の書き方 */
+    aspect-ratio: 16 / 9;
+    /* 3. 元の設定(padding-bottomのハック)をリセットする */
+    padding-bottom: 0;
+    height: auto;
+    /* 4. 余白の調整 */
+    margin: 0.8em 0;
+}
+
+/* --- Log List Styles --- */
+.log-list {
+    margin-top: 20px;
+}
+
+.log-row {
+    border-bottom: 0.5px solid rgba(0, 0, 0, 0.15);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.log-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 15px 0;
+    /* Indexの 35px より大幅に縮小 */
+}
+
+.log-title-area {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+}
+
+.log-date {
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    color: rgba(0, 0, 0, 0.4);
+    font-family: "Noto Sans", sans-serif;
+    font-weight: 400;
+    width: 60px;
+    /* 日付の幅を固定して揃える */
+}
+
+.log-title {
+    margin: 0;
+    font-size: 2.2rem;
+    font-weight: 100;
+    letter-spacing: 0.05em;
+    line-height: 2.4rem;
+}
+
+.log-type-tag {
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+    color: rgba(0, 0, 0, 0.6);
+    font-family: "Noto Sans", sans-serif;
+    text-transform: lowercase;
+}
+
+.log-row:hover {
+    /* 境界線を白く光らせ、背景をわずかにグレーにする（Worksリストと統一） */
+    border-color: rgba(0, 0, 0, 1);
+}
+
+/* 既存のホバー設定（文字色の変化）も維持されます */
+.log-row:hover .log-date,
+.log-row:hover .log-type-tag {
+    color: rgba(0, 0, 0, 1);
+}
+
+/* --- Related Section Styles --- */
+.related-section {
+    margin-top: 10px;
+    margin-right: auto;
+    margin-bottom: 4rem;
+    margin-left: auto;
+}
+
+.related-title {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: none;
+    color: #000;
+    margin-bottom: 30px;
+    font-weight: 100;
+    /* Noto Sans Regular */
+}
+
+/* --- Code Block Styles --- */
+
+/* コードブロックのタイトル（ファイル名など） */
+.code-title {
+    font-size: 0.9rem;
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    background-color: rgba(0, 0, 0, 0.2);
+    /* 背景より少し濃く */
+    padding: 4px 10px;
+    border-radius: 4px 4px 0 0;
+    /* 上部だけ丸く */
+    display: inline-block;
+    margin-bottom: 0;
+    color: rgba(0, 0, 0, 0.8);
+    margin-top: 1em;
+    /* 前の段落との間隔 */
+}
+
+/* コードブロック本体 */
+pre.code-block {
+    margin-top: 0;
+    /* タイトルとくっつける */
+    margin-bottom: 1.5em;
+    background-color: rgba(0, 0, 0, 0.3);
+    /* 暗めの半透明背景 */
+    padding: 15px;
+    border-radius: 0 4px 4px 4px;
+    /* タイトル以外の角を丸く */
+    overflow-x: auto;
+    /* 長い行は横スクロール */
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* 薄い枠線 */
+}
+
+/* コードの文字スタイル */
+pre.code-block code {
+    font-family: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #e0e0e0;
+    /* 明るいグレー */
+    white-space: pre;
+    /* 改行やスペースをそのまま表示 */
+}
+
+/* モバイル表示時の微調整 */
+@media screen and (max-width: 768px) {
+    pre.code-block {
+        padding: 10px;
+        font-size: 0.8rem;
+    }
+}
+
+/* --- Mobile / Tablet Styles (768px以下) --- */
+@media screen and (max-width: 768px) {
+
+    /* 1. 全体の余白調整 */
+    .global-header {
+        padding: 25px 20px;
+        /* 上下左右の余白を縮小 */
+    }
+
+    .list-container {
+        padding: 120px 20px 60px;
+        /* 上部の大きな余白を調整 */
+    }
+
+    .text-content {
+        max-width: 100%;
+        /* 横幅いっぱいに使う */
+        padding: 0 20px;
+        margin-top: 120px;
+    }
+
+    /* 2. ヘッダー・メニューの調整 */
+    .logo a {
+        font-size: 0.8rem;
+    }
+
+    .top-menu {
+        gap: 1rem;
+        /* メニュー間の距離を詰める */
+    }
+
+    .menu-item a,
+    .filter-btn {
+        font-size: 0.8rem;
+        /* UIテキストを小さく */
+    }
+
+    /* 3. Works / Log リストのタイトルサイズ調整 */
+    .title-area h3,
+    .log-title,
+    .text-content h1 {
+        font-size: 1.2rem;
+        /* 2.2rem から 1.4rem に縮小 */
+        line-height: 1.4em;
+        letter-spacing: 0.1em;
+    }
+
+    .row-link,
+    .log-link {
+        padding: 20px 0;
+        /* 行の上下間隔を詰める */
+        flex-direction: column;
+        /* タグがはみ出さないよう縦並びを許容 */
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .type-tag,
+    .log-type-tag {
+        font-size: 0.8rem;
+        /* タグを控えめに */
+    }
+
+    .type-tag {
+        margin-left: 0;
+    }
+
+    /* Log一覧の各行のレイアウト設定 */
+    .log-link {
+        display: grid;
+        /* 2列のグリッドにする（1列目：日付、2列目：タグ） */
+        grid-template-columns: auto 1fr;
+        row-gap: 8px;
+        /* 上下（タイトルと日付行の間）の隙間 */
+        column-gap: 15px;
+        /* 日付とタグの間の隙間 */
+        padding: 20px 0;
+        align-items: center;
+    }
+
+    /* 階層をリセットして、中身のタイトルと日付を直接グリッドに参加させる */
+    .log-title-area {
+        display: contents;
+    }
+
+    /* タイトルを1行目全部（2列分）使って表示 */
+    .log-title {
+        grid-column: 1 / 3;
+        order: 1;
+        /* 1番目に表示 */
+        font-size: 1.2rem;
+        line-height: 1.3;
+        margin-bottom: 2px;
+    }
+
+    /* 更新日を2行目・左側に配置 */
+    .log-date {
+        grid-column: 1;
+        order: 2;
+        /* 2番目に表示 */
+        font-size: 0.75rem;
+        width: auto;
+        /* 固定幅を解除 */
+        opacity: 0.6;
+    }
+
+    /* タグを2行目・右側に配置 */
+    .log-type-tag {
+        grid-column: 2;
+        order: 3;
+        /* 3番目に表示 */
+        font-size: 0.8rem;
+        justify-self: start;
+        /* 左寄せ（日付のすぐ横） */
+        opacity: 0.6;
+    }
+
+    /* 4. 本文テキストの調整 */
+    .text-content h2 {
+        font-size: 1.2rem;
+        margin-top: 0.25rem;
+    }
+
+    .text-content p {
+        font-size: 0.8rem;
+        /* 本文をわずかに小さく */
+        line-height: 1.4rem;
+        letter-spacing: 0.05em;
+    }
+
+    .indent {
+        padding-left: 6px;
+        margin-top: 0.2em;
+        margin-right: 0px;
+        margin-bottom: 0.2em;
+        margin-left: 0px;
+        font-size: 0.8rem;
+        line-height: 1.4rem;
+    }
+
+    /* 5. モバイルで不要な要素を非表示 */
+    #hover-preview-container {
+        display: none !important;
+        /* スマホではホバー画像を表示しない */
+    }
+
+    /* 6. 画像のサイズ調整 */
+    #about-content img {
+        max-width: 50%;
+        /* 画像が画面からはみ出さないように */
+    }
+
+    .indent .video-container {
+        max-width: 100%;
+    }
+}

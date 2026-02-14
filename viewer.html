@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Viewer - Ayaka Sakakibara</title>
+  <link rel="stylesheet" href="style.css">
+  <meta property="og:title" content="Viewer - Ayaka Sakakibara">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://aykskkbr.github.io/viewer.html">
+  <meta property="og:image" content="https://aykskkbr.github.io/ogp.png">
+  <meta property="og:site_name" content="Ayaka Sakakibara">
+  <meta property="og:description" content="Ayaka Sakakibara Portfolio - Viewer">
+</head>
+
+<body>
+
+  <header class="global-header">
+    <div class="logo">
+      <a href="index.html">Ayaka Sakakibara</a>
+    </div>
+    <nav class="top-menu">
+      <div class="menu-item">
+        <a href="index.html">Works</a>
+      </div>
+      <div class="menu-item">
+        <a href="about.html">About</a>
+      </div>
+    </nav>
+  </header>
+
+  <div id="loading" class="loading">Loading content...</div>
+
+  <article class="text-content" id="main-content"></article>
+
+  <section class="text-content related-section">
+    <h2 class="related-title">Related Pages</h2>
+    <div id="related-grid" class="log-list"></div>
+  </section>
+
+  <script src="script.js"></script>
+  <script>
+    async function loadViewerPage() {
+      const params = new URLSearchParams(window.location.search);
+      const pageTitle = params.get('page');
+      if (!pageTitle) return;
+
+      try {
+        const response = await fetch(`${PROXY_BASE}/api/pages/${PROJECT_NAME}/${encodeURIComponent(pageTitle)}/text`);
+        const text = await response.text();
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('main-content').innerHTML = scrapboxToHtml(text);
+
+        const foundTags = [];
+        const lowerText = text.toLowerCase();
+
+        // ★修正箇所: 他のタグ検索をすべて廃止し、[artwork] のみを判定
+        if (lowerText.includes('[artwork]')) {
+          foundTags.push('[artwork]');
+        }
+
+        // foundTagsには 'artwork' しか入らないため、
+        // script.js 側では artwork タグを持つページのみが検索されます。
+        if (foundTags.length > 0) {
+          await fetchScrapboxData('related', pageTitle, foundTags);
+        }
+
+        document.title = `${pageTitle} - Ayaka Sakakibara`;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+    window.onload = loadViewerPage;
+  </script>
+</body>
+
+</html>

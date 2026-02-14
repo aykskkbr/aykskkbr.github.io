@@ -115,29 +115,68 @@ a {
     border-radius: 2px;
 }
 
-/* --- Works List (Index) --- */
-.list-container {
-    padding: 180px 50px 100px;
-    position: relative;
-    z-index: 10;
+/* style.css */
+
+/* --- Works List (Index Grid Layout) --- */
+
+/* グリッドコンテナの設定 */
+#works-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 横3列 */
+    gap: 40px; /* アイテム間の余白 */
+    width: 100%;
+    box-sizing: border-box;
 }
 
-.work-row {
-    border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
-    transition: border-color 0.3s;
+/* 個々の作品カード */
+.work-card {
+    display: flex;
+    flex-direction: column;
+    transition: opacity 0.3s ease;
 }
 
-/* ホバー時は線が白くなるのみ（反転なし） */
-.work-row:hover {
-    border-color: #000;
+.work-card:hover {
+    opacity: 0.7; /* ホバー時に少し薄くする */
 }
 
-.title-area h3 {
+.card-link {
+    display: block;
+    width: 100%;
+    text-decoration: none;
+}
+
+/* 画像エリア */
+.card-image {
+    width: 100%;
+    aspect-ratio: 16 / 9; /* 画像の比率を16:9に固定 */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 15px; /* タイトルとの間隔 */
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.05); /* 薄い枠線（任意） */
+}
+
+/* タイトルエリア */
+.card-info h3 {
     margin: 0;
-    font-size: 1.8rem;
-    font-weight: 100;
-    letter-spacing: 0.15em;
-    line-height: 1.5rem;
+    font-size: 1.1rem; /* 少し小さめに調整 */
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    line-height: 1.4;
+    color: #000;
+}
+
+/* --- Mobile / Tablet Styles (上書き用) --- */
+@media screen and (max-width: 768px) {
+    #works-grid {
+        grid-template-columns: 1fr; /* スマホでは1列 */
+        gap: 40px;
+    }
+    
+    .card-info h3 {
+        font-size: 1.0rem;
+    }
 }
 
 /* --- Content Detail (About / Viewer) --- */

@@ -115,7 +115,7 @@ a {
     border-radius: 2px;
 }
 
-/* --- Works List (Index) --- */  ← ここから削除スタート（117行目）
+/* --- Works List (Index) --- */
 .list-container {
     padding: 180px 50px 100px;
     position: relative;
@@ -139,7 +139,6 @@ a {
     letter-spacing: 0.15em;
     line-height: 1.5rem;
 }
-
 
 /* --- Content Detail (About / Viewer) --- */
 .text-content {

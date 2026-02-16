@@ -60,6 +60,8 @@ function scrapboxToHtml(text) {
     line = line.replace(/\[(https?:\/\/[^\]]+\.(?:png|jpg|jpeg|gif|svg|webp))\]/g, '<img src="$1">');
     line = line.replace(/\[https?:\/\/(?:www\.youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)\]/g,
       '<div class="video-container"><iframe src="https://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe></div>');
+    line = line.replace(/\[https?:\/\/vimeo\.com\/([0-9]+)\]/g,
+      '<div class="video-container"><iframe src="https://player.vimeo.com/video/$1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div>');
     line = line.replace(/\[([^\]]+)\]/g, (match, content) => {
       const urlMatch = content.match(/(https?:\/\/[^\s]+)/);
       if (urlMatch) {
@@ -143,9 +145,9 @@ function renderGrid(pages, container) {
     }
 
     // 画像がない場合のプレースホルダー画像（必要に応じて変更可）
-    const imageStyle = imgUrl 
-      ? `background-image: url('${imgUrl}');` 
-      : 'background-color: #f0f0f0;'; 
+    const imageStyle = imgUrl
+      ? `background-image: url('${imgUrl}');`
+      : 'background-color: #f0f0f0;';
 
     card.innerHTML = `
       <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="card-link">

@@ -55,11 +55,9 @@ function scrapboxToHtml(text) {
 
     // ▼▼▼ ここから追加 ▼▼▼
     if (line.trim().toLowerCase().startsWith('copy:')) {
-      // パターンA: 「copy:」という文字だけを消して、文章は表示させる場合
-      line = line.replace(/^\s*copy:\s*/i, ''); 
-
+  
       // パターンB: この行自体をViewerで完全に非表示にする場合（パターンAを使う場合は、下の return; は消してください）
-      // return; 
+       return; 
     }
     // ▲▲▲ ここまで追加 ▲▲▲
     

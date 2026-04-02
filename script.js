@@ -126,8 +126,6 @@ function displayWorks(filterTag) {
 
 // script.js 内の renderGrid 関数をこれに置き換えてください
 
-// script.js 内の renderGrid 関数をこれに置き換えてください
-
 function renderGrid(pages, container) {
   container.innerHTML = '';
 

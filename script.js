@@ -52,6 +52,17 @@ function scrapboxToHtml(text) {
     }
 
     if (!line.trim()) { html += '<br>'; return; }
+
+    // ▼▼▼ ここから追加 ▼▼▼
+    if (line.trim().toLowerCase().startsWith('copy:')) {
+      // パターンA: 「copy:」という文字だけを消して、文章は表示させる場合
+      line = line.replace(/^\s*copy:\s*/i, ''); 
+
+      // パターンB: この行自体をViewerで完全に非表示にする場合（パターンAを使う場合は、下の return; は消してください）
+      // return; 
+    }
+    // ▲▲▲ ここまで追加 ▲▲▲
+    
     line = line.replace(/^\[\* (.+?)\]/g, '<h2>$1</h2>');
     line = line.replace(/\[(https?:\/\/scrapbox\.io\/files\/[^\]]+)\]/g, (match, url) => {
       const proxiedUrl = url.replace('https://scrapbox.io', PROXY_BASE);

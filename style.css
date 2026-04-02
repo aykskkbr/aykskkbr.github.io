@@ -137,29 +137,73 @@ a {
 .work-card {
     display: flex;
     flex-direction: column;
-    transition: opacity 0.3s ease;
 }
 
-.work-card:hover {
-    opacity: 0.7; /* ホバー時に少し薄くする */
-}
-
+/* ホバー時にカード全体が薄くなる元の設定は削除し、代わりに画像部分だけでエフェクトをかけます */
 .card-link {
     display: block;
     width: 100%;
     text-decoration: none;
 }
 
+/* 画像とオーバーレイをまとめるラッパー要素 */
+.card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9; /* 比率をここに移動 */
+    margin-bottom: 15px;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,0.05);
+    overflow: hidden; /* 中の画像が拡大した時にはみ出さないようにする */
+}
+
 /* 画像エリア */
 .card-image {
     width: 100%;
-    aspect-ratio: 16 / 9; /* 画像の比率を16:9に固定 */
+    height: 100%;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin-bottom: 15px; /* タイトルとの間隔 */
-    border-radius: 2px;
-    border: 1px solid rgba(0,0,0,0.05); /* 薄い枠線（任意） */
+    transition: transform 0.4s ease; /* ホバー時の微ズーム用アニメーション */
+}
+
+/* オーバーレイ（半透明の黒背景とテキスト） */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6); /* 0.6の数値を変更すると暗さが変わります */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0; /* 通常時は非表示 */
+    transition: opacity 0.4s ease; /* ふわっと表示させるアニメーション */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* オーバーレイ内のコピー文 */
+.card-copy {
+    color: #fff; /* 文字色は白 */
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    line-height: 1.6;
+    text-align: center;
+    margin: 0;
+}
+
+/* --- ホバー時のアクション --- */
+/* 1. オーバーレイを表示する */
+.work-card:hover .card-overlay {
+    opacity: 1;
+}
+
+/* 2. 画像を少しだけズームさせる（リッチな演出・不要なら削除可） */
+.work-card:hover .card-image {
+    transform: scale(1.03);
 }
 
 /* タイトルエリア */

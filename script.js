@@ -126,9 +126,10 @@ function displayWorks(filterTag) {
 
 // script.js 内の renderGrid 関数をこれに置き換えてください
 
+// script.js 内の renderGrid 関数をこれに置き換えてください
+
 function renderGrid(pages, container) {
   container.innerHTML = '';
-  // ホバープレビュー用の要素取得は不要になったため削除
 
   if (pages.length === 0) {
     container.innerHTML = '<p class="loading">No works found.</p>';
@@ -136,22 +137,37 @@ function renderGrid(pages, container) {
   }
 
   pages.forEach(page => {
+    // --- 1. コピー文の抽出 ---
+    let copyText = '';
+    // descriptionsの中から 'copy:' で始まる行を探す
+    const copyLine = page.descriptions.find(line => line.toLowerCase().startsWith('copy:'));
+    if (copyLine) {
+      // 'copy:' という文字を消して、前後の空白を取り除く
+      copyText = copyLine.replace(/^copy:/i, '').trim();
+    }
+
     const card = document.createElement('div');
-    card.className = 'work-card'; // クラス名を変更
+    card.className = 'work-card';
 
     let imgUrl = page.image || '';
     if (imgUrl.startsWith('https://scrapbox.io')) {
       imgUrl = imgUrl.replace('https://scrapbox.io', PROXY_BASE);
     }
 
-    // 画像がない場合のプレースホルダー画像（必要に応じて変更可）
+    // 画像がない場合のプレースホルダー画像
     const imageStyle = imgUrl
       ? `background-image: url('${imgUrl}');`
       : 'background-color: #f0f0f0;';
 
+    // --- 2. HTML構造の変更（ラッパーとオーバーレイを追加） ---
     card.innerHTML = `
       <a href="viewer.html?page=${encodeURIComponent(page.title)}" class="card-link">
-        <div class="card-image" style="${imageStyle}"></div>
+        <div class="card-image-wrapper">
+          <div class="card-image" style="${imageStyle}"></div>
+          <div class="card-overlay">
+            <p class="card-copy">${copyText}</p>
+          </div>
+        </div>
         <div class="card-info">
           <h3>${page.title}</h3>
         </div>

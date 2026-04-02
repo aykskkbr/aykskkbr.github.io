@@ -5,7 +5,7 @@ let allPages = [];
 
 // インデックス等に表示したくないページタイトル
 // 念のため元の除外リストも残しつつ、artwork以外のタグページ等が紛れ込まないようにします
-const EXCLUDED_TITLES = ['artwork','cliantwork', 'About'];
+const EXCLUDED_TITLES = ['artwork', 'About'];
 
 /**
  * Scrapbox記法をHTMLに変換する
@@ -127,7 +127,7 @@ function displayWorks(filterTag) {
     const desc = page.descriptions.join(' ').toLowerCase();
 
     // [artwork] タグがあるページのみ抽出
-    return desc.includes('[artwork]', '[cliantwork]');
+    return desc.includes('[artwork]');
   });
 
   renderGrid(filtered, container);
